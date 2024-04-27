@@ -25,7 +25,7 @@
         });
 
         function all_loaded(){
-            draw(game_data['states']['0']['text_loaded']); 
+            drawString(game_data['states']['0']['text_loaded']);
             console.log(current_state);
             // $('#splash').hide();
             // $('#mycanvas').show();
@@ -91,7 +91,7 @@
             }
         }
 
-        function draw(string) {
+        function drawString(string) {
         var ctx = canvas.getContext('2d');
         ctx.drawString(string, 0, 0,  canvas.width +1,  canvas.height+1 );
         }
