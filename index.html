@@ -25,7 +25,7 @@
         });
 
         function all_loaded(){
-            draw(game_data['states']['0']['text_loaded']['text']); 
+            draw(game_data['states']['0']['text_loaded']); 
             console.log(current_state);
             // $('#splash').hide();
             // $('#mycanvas').show();
@@ -36,7 +36,7 @@
             for (var key in game_data['states']){
                 if(game_data['states'][key]['text'] != null){
                     console.log( key, game_data['states'][key]['text'] );
-                    game_data['states'][key]['text_loaded'] = new Image();
+                    game_data['states'][key]['text_loaded'] = new String();
                     game_data['states'][key]['text_loaded'].src = game_data['states'][key]['text']; 
                 }
             }
@@ -91,18 +91,18 @@
             }
         }
 
-        function draw(img) {
+        function draw(string) {
         var ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0,  canvas.width +1,  canvas.height+1 );
+        ctx.drawString(string, 0, 0,  canvas.width +1,  canvas.height+1 );
         }
 
         function draw_src(src, x, y, w, h) {
         var ctx = canvas.getContext('2d');
-        var img = new Image();
-        img.onload = function() {
-            ctx.drawImage(img, x, y, w, h);
+        var string = new String();
+        string.onload = function() {
+            ctx.drawString(string, x, y, w, h);
         };
-        img.src = src;
+        string.src = src;
         }
 
 
