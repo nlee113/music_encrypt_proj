@@ -1,5 +1,5 @@
 {
-    "start_state" : "0,0",
+    "start_state" : "0",
 
     "states" : { 
     
@@ -236,7 +236,7 @@
                             ]   
         },
         "2": {
-            "bk_img" : "b.jpg",
+            "bk_img" : "b.jpeg",
             "next_state" : [ {
                 "state_name": "1",
                 "key_input" : 65
