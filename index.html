@@ -6,104 +6,102 @@
 
     </head>
     <body style="">
-        <canvas id='mycanvas' style="display:none;border:1px solid #000000;">
+        <canvas id="myCanvas" style="border:1px solid black;">
         </canvas>
 
         <script>
-        const canvas = document.querySelector("canvas");
-        var current_state;
-        var game_data;
-        try{
-            draw(game_data['states'][current_state]['text_loaded']);
-        }catch(err){
-        }
+            //const canvas = document.querySelector("canvas");
+            const canvas = document.getElementById("myCanvas");
+            const ctx = canvas.getContext("2d");
+            ctx.fillStyle = "red";
+            ctx.fillRect(0, 0, 150, 75);
 
-        $.getJSON( "tabs.json", function( data ) {
-            game_data = data;
-            current_state = data['start_state'];
-            load_messages();
-        });
-
-        function all_loaded(){
-            draw(game_data['states']['0']['text_loaded']); 
-            console.log(current_state);
-            // $('#splash').hide();
-            // $('#mycanvas').show();
-            
-        }
-
-        function load_messages(){
-            for (var key in game_data['states']){
-                if(game_data['states'][key]['text'] != null){
-                    console.log( key, game_data['states'][key]['text'] );
-                    game_data['states'][key]['text_loaded'] = new String();
-                    game_data['states'][key]['text_loaded'].src = game_data['states'][key]['text']; 
-                }
+            var current_state;
+            var game_data;
+            try{
+                draw(game_data['states'][current_state]['text_loaded']);
+            }catch(err){
             }
-            all_loaded();
-        }
 
-        const up_arrow = 38;
-        const down_arrow = 40;
-        const left_arrow = 37;
-        const right_arrow = 39;
+            $.getJSON( "tabs.json", function( data ) {
+                game_data = data;
+                current_state = data['start_state'];
+                load_messages();
+            });
 
-        var cur_pos_x = 0;
-        var cur_pos_y = 0;
-
-
-        document.body.onkeydown = function(e){
-            if(e.keyCode == up_arrow){
-                cur_pos_x = cur_pos_x +1;
+            function all_loaded(){
+                fillText(game_data['states']['0']['text_loaded']); 
+                console.log(current_state);
+                // $('#splash').hide();
+                // $('#mycanvas').show();
+                
             }
-        //alert(String.fromCharCode(e.keyCode)+" --> "+e.keyCode);
-            key_input(e.keyCode)
 
-        };
-
-        function key_input(what_key){
-            for(i=0; i< game_data['states'][current_state]['next_state'].length; i++){
-                if( what_key == game_data['states'][current_state]['next_state'][i]['key_input']) {
-                    if ( typeof game_data['states'][current_state]['next_state'][i]['state_name'] == "string"){
-                    next_state(game_data['states'][current_state]['next_state'][i]['state_name'])
+            function load_messages(){
+                for (var key in game_data['states']){
+                    if(game_data['states'][key]['text'] != null){
+                        console.log( key, game_data['states'][key]['text'] );
+                        game_data['states'][key]['text_loaded'] = new String();
+                        game_data['states'][key]['text_loaded'].src = game_data['states'][key]['text']; 
                     }
-                    break
-                } 
+                }
+                all_loaded();
             }
 
-            console.log(what_key);
-        }
+            const up_arrow = 38;
+            const down_arrow = 40;
+            const left_arrow = 37;
+            const right_arrow = 39;
 
-        function next_state( state) {
-            console.log("Current State = " + current_state + " --> New State= " + state) 
-            current_state = state
+            var cur_pos_x = 0;
+            var cur_pos_y = 0;
 
-            draw(game_data['states'][current_state]['text_loaded'])
-            if(game_data['states'][current_state]['other_text'] != null){
-                for(i=0; i<game_data['states'][current_state]['other_text'].length;i++){
-                    console.log( game_data['states'][current_state]['other_text'][i]['src']);
-                    draw_src( game_data['states'][current_state]['other_text'][i]['src'],
-                            game_data['states'][current_state]['other_text'][i]['x_cord'],
-                            game_data['states'][current_state]['other_text'][i]['y_cord'],
-                            game_data['states'][current_state]['other_text'][i]['width'],
-                            game_data['states'][current_state]['other_text'][i]['height']);
+
+            document.body.onkeydown = function(e){
+                if(e.keyCode == up_arrow){
+                    cur_pos_x = cur_pos_x +1;
+                }
+            //alert(String.fromCharCode(e.keyCode)+" --> "+e.keyCode);
+                key_input(e.keyCode)
+
+            };
+
+            function key_input(what_key){
+                for(i=0; i< game_data['states'][current_state]['next_state'].length; i++){
+                    if( what_key == game_data['states'][current_state]['next_state'][i]['key_input']) {
+                        if ( typeof game_data['states'][current_state]['next_state'][i]['state_name'] == "string"){
+                        next_state(game_data['states'][current_state]['next_state'][i]['state_name'])
+                        }
+                        break
+                    } 
+                }
+
+                console.log(what_key);
+            }
+
+            function next_state( state) {
+                console.log("Current State = " + current_state + " --> New State= " + state) 
+                current_state = state
+
+                draw(game_data['states'][current_state]['text_loaded'])
+                if(game_data['states'][current_state]['other_text'] != null){
+                    for(i=0; i<game_data['states'][current_state]['other_text'].length;i++){
+                        console.log( game_data['states'][current_state]['other_text'][i]['src']);
+                        draw_src( game_data['states'][current_state]['other_text'][i]['src'],
+                                game_data['states'][current_state]['other_text'][i]['x_cord'],
+                                game_data['states'][current_state]['other_text'][i]['y_cord'],
+                                game_data['states'][current_state]['other_text'][i]['width'],
+                                game_data['states'][current_state]['other_text'][i]['height']);
+                    }
                 }
             }
-        }
 
-        function draw(string) {
-        var ctx = canvas.getContext('2d');
-        ctx.drawString(string, 0, 0,  canvas.width +1,  canvas.height+1 );
-        }
+            function fillText(string) {
+                var ctx = canvas.getContext('2d');
+                ctx.font = "50px Arial";
+                ctx.fillText(string, 10, 80);
+            }
 
-        function draw_src(src, x, y, w, h) {
-        var ctx = canvas.getContext('2d');
-        var string = new String();
-        string.onload = function() {
-            ctx.drawString(string, x, y, w, h);
-        };
-        string.src = src;
-        }
 
 
 
