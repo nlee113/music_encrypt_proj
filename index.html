@@ -1,20 +1,26 @@
 <!DOCTYPE html>
 <html>
-<head>
-<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <head>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 
-<script src="js/sprite.js"></script>
-
-
-</head>
-<body style="">
-<canvas id='mycanvas' style="">
-</canvas>
+    <script src=""></script>
 
 
-<script>
-    
-</script>
+    </head>
+    <body style="">
+        <canvas id='mycanvas' style="display:none;border:1px;">
+        </canvas>
 
-</body>
+
+    <script>
+    $.getJSON( ".vscode/tabs.json", function( data ) {
+        game_data = data;
+        current_state = data['start_state'];
+        load_imgs();
+
+});
+    const canvas = document.querySelector("canvas");
+    </script>
+
+    </body>
 </html>
