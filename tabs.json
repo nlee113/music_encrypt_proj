@@ -1,0 +1,16 @@
+{
+    "start_state" : "0",
+
+    "states" : { 
+    
+        "0": {
+            "text" : "0",
+            "next_state" : [ {
+                                "state_name": "1",
+                                "key_input" : 38
+                             }
+                            ]
+        }
+    }
+}
+
