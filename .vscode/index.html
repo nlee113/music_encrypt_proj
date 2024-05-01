@@ -18,21 +18,21 @@ resize()
 window.addEventListener('resize', resize)
 
 var current_state;
-var game_data;
+var encrypt_data;
 
 function resize(){
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
   try{
-    draw(game_data['states'][current_state]['bk_img_loaded']);
+    draw(encrypt_data['states'][current_state]['bk_img_loaded']);
   }catch(err){
    }
 
 }
 
-$.getJSON( "data/map.json", function( data ) {
-        game_data = data;
+$.getJSON( "data/notes.json", function( data ) {
+        encrypt_data = data;
         current_state = data['start_state'];
         load_imgs();
 
@@ -40,7 +40,7 @@ $.getJSON( "data/map.json", function( data ) {
 
 
 function all_loaded(){
-    draw(game_data['states']['0']['bk_img_loaded']); 
+    draw(encrypt_data['states']['0']['bk_img_loaded']);
     console.log(current_state);
     $('#splash').hide();
     $('#mycanvas').show();
@@ -48,11 +48,11 @@ function all_loaded(){
 }
 
 function load_imgs(){
-    for (var key in game_data['states']){
-        if(game_data['states'][key]['bk_img'] != null){
-            console.log( key, game_data['states'][key]['bk_img'] );
-            game_data['states'][key]['bk_img_loaded'] = new Image();
-            game_data['states'][key]['bk_img_loaded'].src = game_data['states'][key]['bk_img']; 
+    for (var key in encrypt_data['states']){
+        if(encrypt_data['states'][key]['bk_img'] != null){
+            console.log( key, encrypt_data['states'][key]['bk_img'] );
+            encrypt_data['states'][key]['bk_img_loaded'] = new Image();
+            encrypt_data['states'][key]['bk_img_loaded'].src = encrypt_data['states'][key]['bk_img'];
         }
     }
     all_loaded();
@@ -77,10 +77,10 @@ document.body.onkeydown = function(e){
 };
 
 function key_input(what_key){
-    for(i=0; i< game_data['states'][current_state]['next_state'].length; i++){
-        if( what_key == game_data['states'][current_state]['next_state'][i]['key_input']) {
-            if ( typeof game_data['states'][current_state]['next_state'][i]['state_name'] == "string"){
-               next_state(game_data['states'][current_state]['next_state'][i]['state_name'])
+    for(i=0; i< encrypt_data['states'][current_state]['next_state'].length; i++){
+        if( what_key == encrypt_data['states'][current_state]['next_state'][i]['key_input']) {
+            if ( typeof encrypt_data['states'][current_state]['next_state'][i]['state_name'] == "string"){
+               next_state(encrypt_data['states'][current_state]['next_state'][i]['state_name'])
             }
             break
         } 
@@ -93,15 +93,15 @@ function next_state( state) {
     console.log("Current State = " + current_state + " --> New State= " + state) 
     current_state = state
 
-    draw(game_data['states'][current_state]['bk_img_loaded'])
-    if(game_data['states'][current_state]['other_imgs'] != null){
-        for(i=0; i<game_data['states'][current_state]['other_imgs'].length;i++){
-            console.log( game_data['states'][current_state]['other_imgs'][i]['src']);
-            draw_src( game_data['states'][current_state]['other_imgs'][i]['src'],
-                    game_data['states'][current_state]['other_imgs'][i]['x_cord'],
-                    game_data['states'][current_state]['other_imgs'][i]['y_cord'],
-                    game_data['states'][current_state]['other_imgs'][i]['width'],
-                    game_data['states'][current_state]['other_imgs'][i]['height']);
+    draw(encrypt_data['states'][current_state]['bk_img_loaded'])
+    if(encrypt_data['states'][current_state]['other_imgs'] != null){
+        for(i=0; i<encrypt_data['states'][current_state]['other_imgs'].length;i++){
+            console.log( encrypt_data['states'][current_state]['other_imgs'][i]['src']);
+            draw_src( encrypt_data['states'][current_state]['other_imgs'][i]['src'],
+                    encrypt_data['states'][current_state]['other_imgs'][i]['x_cord'],
+                    encrypt_data['states'][current_state]['other_imgs'][i]['y_cord'],
+                    encrypt_data['states'][current_state]['other_imgs'][i]['width'],
+                    encrypt_data['states'][current_state]['other_imgs'][i]['height']);
         }
     }
 }
